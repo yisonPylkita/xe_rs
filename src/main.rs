@@ -1,3 +1,4 @@
+use std::env;
 use std::fs;
 
 fn print_hex_data(content: &Vec<u8>) {
@@ -33,6 +34,8 @@ fn print_hex_data(content: &Vec<u8>) {
 
 fn main()
 {
-    let content = fs::read("Cargo.toml").unwrap();
+    let args: Vec<String> = env::args().collect();
+    let file_to_load = &args[1];
+    let content = fs::read(file_to_load).unwrap();
     print_hex_data(&content);
 }
