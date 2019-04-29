@@ -9,6 +9,10 @@ fn print_hex_data(content: &Vec<u8>) {
         }
         print!("    ");
         // print string view
+        if chunk.len() < 16 {
+            // handling last line case
+            print!("{}  ", " ".repeat(16 - chunk.len()));
+        }
         for byte in chunk {
             match byte {
                 0x00 ... 0x1f => {
