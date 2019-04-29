@@ -1,11 +1,7 @@
-use std::fs::File;
-use std::io::Read;
+use std::fs;
 
 fn main()
 {
-    let mut file=File::open("Cargo.toml").unwrap();
-    let mut buf=[0u8;12];
-    file.read(&mut buf).unwrap();
-    println!("{:?}",buf);
-    // use file
+    let content = fs::read("Cargo.toml");
+    println!("{:?}", content);
 }
