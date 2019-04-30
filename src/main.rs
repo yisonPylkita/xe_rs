@@ -3,7 +3,10 @@ use std::fs;
 
 fn print_hex_data(content: &Vec<u8>) {
     // Print only 16 bytes in a row
+    let mut line_number = 0x00;
     for chunk in content.chunks(16) {
+        // print line number
+        print!("{:08x}  ", line_number);
         // print hex view
         for byte in chunk {
             print!("{:02x} ", byte);
@@ -29,6 +32,7 @@ fn print_hex_data(content: &Vec<u8>) {
         }
 
         println!("");
+        line_number += 16;
     }
 }
 
