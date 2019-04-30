@@ -6,32 +6,31 @@ fn print_hex_data(content: &Vec<u8>) {
     let mut line_number = 0x00;
     for chunk in content.chunks(16) {
         // print line number
-        print!("{:08x}  ", line_number);
+        let mut line_buffer = format!("{:08x}  ", line_number);
         // print hex view
         for byte in chunk {
-            print!("{:02x} ", byte);
+            line_buffer.push_str(&format!("{:02x} ", byte));
         }
-        print!("    ");
+        line_buffer.push_str(&format!("    "));
         // print string view
         if chunk.len() < 16 {
             // handling last line case
-            print!("{}  ", " ".repeat(16 - chunk.len()));
+            line_buffer.push_str(&format!("{}", " ".repeat(48 - chunk.len() * 3)));
         }
         for byte in chunk {
             match byte {
                 0x00 ... 0x1f => {
-                    print!(".");
+                    line_buffer.push_str(&format!("."));
                 },
                 0x20 ... 0x7e => {
-                    print!("{}", *byte as char);
+                    line_buffer.push_str(&format!("{}", *byte as char));
                 },
                 0x7f ... 0xff => {
-                    print!(".");
+                    line_buffer.push_str(&format!("."));
                 },
             }
         }
-
-        println!("");
+        println!("{}", line_buffer);
         line_number += 16;
     }
 }
